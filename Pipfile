@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 python-decouple = "*"
+crispy-bootstrap5 = "*"
+django-configurations = "*"
 
 [dev-packages]
 autopep8 = "*"
