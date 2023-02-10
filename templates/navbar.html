@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <span class="matinee">Matinee</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% comment %}
+                <li class="nav-item">
+                    <a class="nav-link{% if page_group == "movie-nights" %} active{% endif %}"
+                       href="{% url 'matinee_list_ui' %}">Showtime</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{% if page_group == "search" %} active{% endif %}"
+
+                       href="{% url 'movie_search_ui' %}">Search</a>
+                </li>
+                {% endcomment %}
+                <li class="nav-item">
+                    <a class="nav-link{% if page_group == "profile" %} active{% endif %}" href="{% url 'profile' %}">User Profile</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav flex-end">
+                {% if request.user.is_anonymous %}
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{% url 'login' %}">Log In</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'django_registration_register' %}">Sign Up</a>
+                        {% comment %}
+                        <a class="nav-link" href="/accounts/register/">Sign Up</a>
+                        {% endcomment %}
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

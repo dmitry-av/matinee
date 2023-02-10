@@ -4,4 +4,4 @@ from django.shortcuts import render
 
 @login_required
 def profile(request):
-    return render(request, "movienight_auth/profile.html", {"page_group": "profile"})
+    return render(request, "matinee_auth/profile.html", {"page_group": "profile"})

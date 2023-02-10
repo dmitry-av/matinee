@@ -1,0 +1,1 @@
+Activate your Matinee account! You have {{ expiration_days }} days!

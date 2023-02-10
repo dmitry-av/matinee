@@ -33,6 +33,7 @@ class Dev(Configuration):
         "django.contrib.sessions",
         "django.contrib.messages",
         "django.contrib.staticfiles",
+        "django_registration",
         "crispy_forms",
         "crispy_bootstrap5",
         "movie",
@@ -149,6 +150,14 @@ class Dev(Configuration):
     CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
     CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+    ACCOUNT_ACTIVATION_DAYS = 7
+
+    BASE_URL = ""
+
+    OMDB_KEY = config("OMDB_KEY")
 
 
 class Prod(Dev):

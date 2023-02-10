@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Log in to Matinee{% endblock %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col col-md-6">
+            {% if next %}
+                {% if user.is_authenticated %}
+                    <p>You don't have access to this page. To proceed, please login.</p>
+                {% else %}
+                    <p>You need to login to see this page.</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col col-md-6">
+            <form method="post" action="{% url "login" %}">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                </div>
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
+            <p><a href="{% url 'password_reset' %}">Reset password</a></p>
+        </div>
+    </div>
+{% endblock %}
