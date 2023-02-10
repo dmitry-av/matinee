@@ -26,6 +26,7 @@ class Dev(Configuration):
     # Application definition
 
     INSTALLED_APPS = [
+        "matinee_auth",
         "django.contrib.admin",
         "django.contrib.auth",
         "django.contrib.contenttypes",
@@ -34,7 +35,6 @@ class Dev(Configuration):
         "django.contrib.staticfiles",
         "crispy_forms",
         "crispy_bootstrap5",
-        "matinee_auth",
         "movie",
     ]
 
@@ -118,6 +118,33 @@ class Dev(Configuration):
     DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
     AUTH_USER_MODEL = "matinee_auth.User"
+
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "verbose": {
+                "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+                "style": "{",
+            },
+        },
+        "handlers": {
+            "file": {
+                "level": "DEBUG",
+                "class": "logging.FileHandler",
+                "filename": "debug.log",
+            },
+            "console": {
+                "class": "logging.StreamHandler",
+                "stream": "ext://sys.stdout",
+                "formatter": "verbose",
+            }
+        },
+        "root": {
+            "handlers": ["file", "console"],
+            "level": "DEBUG",
+        },
+    }
 
     CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
