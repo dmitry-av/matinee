@@ -53,3 +53,11 @@ class Invitation(models.Model):
 
     def __str__(self):
         return f"{self.showtime} / {self.invitee.email}"
+
+
+class SearchTerm(models.Model):
+    term = models.TextField(unique=True)
+    last_search = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.term

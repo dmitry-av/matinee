@@ -9,6 +9,7 @@ python-decouple = "3.7"
 crispy-bootstrap5 = "0.7"
 django-configurations = "2.4"
 django-registration = "3.3"
+requests = "*"
 
 [dev-packages]
 autopep8 = "*"
