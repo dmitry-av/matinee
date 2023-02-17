@@ -14,14 +14,15 @@
                     <a class="nav-link{% if page_group == "movie-nights" %} active{% endif %}"
                        href="{% url 'matinee_list_ui' %}">Showtime</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link{% if page_group == "search" %} active{% endif %}"
-
-                       href="{% url 'movie_search_ui' %}">Search</a>
-                </li>
                 {% endcomment %}
                 <li class="nav-item">
-                    <a class="nav-link{% if page_group == "profile" %} active{% endif %}" href="{% url 'profile' %}">User Profile</a>
+                    <a class="nav-link{% if page_group == "search" %} active {% endif %}"
+
+                       href="{% url 'movie_search' %}">Search</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link{% if page_group == "profile" %} active {% endif %}" href="{% url 'profile' %}">User Profile</a>
                 </li>
             </ul>
             <ul class="navbar-nav flex-end">
