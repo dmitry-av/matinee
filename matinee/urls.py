@@ -26,6 +26,8 @@ urlpatterns = [
     path("", movie.views.index),
     path("search/", movie.views.movie_search, name="movie_search"),
     path("showtimes/", movie.views.showtime_list, name="showtime_list"),
+    path("showtime/<int:pk>/", movie.views.showtime_detail,
+         name="showtime_detail"),
     path("movies/<slug:imdb_id>/", movie.views.movie_detail, name="movie_detail"),
     path("showtimes/<int:pk>/", movie.views.showtime_detail,
          name="showtime_detail"),
