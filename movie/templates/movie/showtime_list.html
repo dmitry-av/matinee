@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Matinee - showtimes{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h2>My showtimes</h2>
+        <ul>
+        {% for created_showtime in created_showtimes %}
+            <li>
+                <a href="{% url 'showtime_detail' created_showtime.pk %}">{{ created_showtime.movie.title }} on {{ created_showtime.start_time }}</a>
+            </li>
+        {% empty %}
+            <li>You have not created any showtimes yet. Search for a movie to create one.</li>
+        {% endfor %}
+        </ul>
+        <h2>Invited showtimes</h2>
+    <ul>
+        {% for invited_showtime in invited_showtimes %}
+            <li>
+                <a href="{% url 'showtime_detail' invited_showtime.pk %}">{{ invited_showtime.movie.title }} on {{ invited_showtime.start_time }}</a>
+            </li>
+        {% empty %}
+            <li>You hav not been invited to any Matinee showtimes.</li>
+        {% endfor %}
+    </ul>
+    </div>
+</div>
+{% endblock %}

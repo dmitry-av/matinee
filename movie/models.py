@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -39,6 +41,13 @@ class Showtime(models.Model):
     creator = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     start_notification_sent = models.BooleanField(default=False)
 
+    @property
+    def end_time(self):
+        if not self.movie.duration:
+            return None
+
+        return self.start_time + timedelta(minutes=self.movie.duration)
+
     def __str__(self):
         return f"`{self.movie}` showtime, created {self.creator.email}"
 
@@ -47,12 +56,12 @@ class Invitation(models.Model):
     showtime = models.ForeignKey(
         Showtime, on_delete=models.CASCADE, related_name="invites"
     )
-    invitee = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    invited = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     attendance_confirmed = models.BooleanField(default=False)
     is_attending = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.showtime} / {self.invitee.email}"
+        return f"{self.showtime} / {self.invited.email}"
 
 
 class SearchTerm(models.Model):

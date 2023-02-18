@@ -2,7 +2,7 @@
 {% block content %}
     <div class="row">
         <div class="col text-center">
-            <h1>Welcome to <span class="matinee">Matinee</span></h1>
+            <h1>Welcome to <span class="bmatinee">Matinee</span></h1>
             <p class="mb-3">Schedule a movie showtime with your friends.</p>
             {% if request.user.is_anonymous %}
             <p>
@@ -10,8 +10,8 @@
             </p>
             {% else %}
             <p>
-                Check out your list of <a href="{% url 'showtime_list' %}">Movie Nights</a>,
-                or perform a <a href="{% url 'movie_search' %}">Movie Search</a> to create your own.
+                Check out your list of <a href="{% url 'showtime_list' %}">Showtimes</a>,
+                or perform a <a href="{% url 'movie_search' %}">Movie search</a> to create your own.
             </p>
             {% endif %}
         </div>

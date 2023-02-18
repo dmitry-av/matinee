@@ -9,12 +9,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                {% comment %}
                 <li class="nav-item">
-                    <a class="nav-link{% if page_group == "movie-nights" %} active{% endif %}"
-                       href="{% url 'matinee_list_ui' %}">Showtime</a>
+                    <a class="nav-link{% if page_group == "showtimes" %} active {% endif %}"
+                       href="{% url 'showtime_list' %}">Showtime</a>
                 </li>
-                {% endcomment %}
                 <li class="nav-item">
                     <a class="nav-link{% if page_group == "search" %} active {% endif %}"
 

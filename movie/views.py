@@ -8,7 +8,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 
 from movie.models import Movie, Showtime, Invitation
-from movie.forms import SearchForm, ShowtimeForm, InviteeForm, AttendanceForm
+from movie.forms import SearchForm, ShowtimeForm, InviteForm, AttendForm
 from .omdb_integration import search_and_save, fill_movie_details
 
 logger = logging.getLogger(__name__)
@@ -37,7 +37,7 @@ def movie_search(request):
         {
             "page_group": "search",
             "search_form": search_form,
-            "film_list": movie_list,
+            "movie_list": movie_list,
             "searched": searched,
         },
     )
@@ -51,12 +51,12 @@ def showtime_list(request):
     )
     invited_showtimes = Showtime.objects.filter(
         start_time__gt=start_time_after,
-        invites__in=Invitation.objects.filter(invitee=request.user),
+        invites__in=Invitation.objects.filter(invited=request.user),
     )
 
     return render(
         request,
-        "movies/showtime_list.html",
+        "movie/showtime_list.html",
         {
             "page_group": "showtimes",
             "created_showtimes": created_showtimes,
@@ -71,19 +71,20 @@ def movie_detail(request, imdb_id):
     fill_movie_details(movie)
     if request.method == "POST":
         showtime_form = ShowtimeForm(request.POST)
-        if movie_night_form.is_valid():
+        if showtime_form.is_valid():
             showtime = showtime_form.save(False)
             showtime.movie = movie
             showtime.creator = request.user
             showtime.save()
-            return redirect("movie_night_detail_ui", showtime.pk)
+            return redirect("showtime_detail", showtime.pk)
     else:
-        movie_night_form = ShowtimeForm()
+        showtime_form = ShowtimeForm()
     return render(
         request,
-        "movies/movie_detail.html",
-        {"page_group": "search", "movie": movie,
-            "showtime_form": showtime_form},
+        "movie/movie_detail.html",
+        {"page_group": "search",
+         "movie": movie,
+         "showtime_form": showtime_form},
     )
 
 
@@ -93,55 +94,55 @@ def showtime_detail(request, pk):
 
     is_creator = showtime.creator == request.user
 
-    invitee_form = None
-    attendance_form = None
+    invite_form = None
+    attend_form = None
 
-    invitees = {invitation.invitee for invitation in showtime.invites.all()}
+    inviteds = {invitation.invited for invitation in showtime.invites.all()}
 
     in_the_past = showtime.start_time < timezone.now()
 
     if not is_creator:
-        if request.user not in invitees:
+        if request.user not in inviteds:
             raise PermissionDenied(
                 "You do not have access to this Showtime event")
 
-        invitation = showtime.invites.filter(invitee=request.user).first()
+        invitation = showtime.invites.filter(invited=request.user).first()
 
         if not in_the_past and request.method == "POST":
-            attendance_form = AttendanceForm(request.POST, instance=invitation)
-            if attendance_form.is_valid():
-                attendance_form.save()
+            attend_form = AttendForm(request.POST, instance=invitation)
+            if attend_form.is_valid():
+                attend_form.save()
         else:
-            attendance_form = AttendanceForm(instance=invitation)
+            attend_form = AttendForm(instance=invitation)
     else:
         if not in_the_past and request.method == "POST":
-            invitee_form = InviteeForm(request.POST)
+            invite_form = InviteForm(request.POST)
 
-            if invitee_form.is_valid():
-                invitee = invitee_form._user
+            if invite_form.is_valid():
+                invited = invite_form._user
 
-                if invitee == request.user or invitee in invitees:
-                    invitee_form.add_error(
+                if invited == request.user or invited in inviteds:
+                    invite_form.add_error(
                         "email", "That user is the creator or already invited"
                     )
                 else:
                     Invitation.objects.create(
-                        invitee=invitee, showtime=showtime
+                        invited=invited, showtime=showtime
                     )
-                    # effectively, just reload the page
+                    # reload the page
                     return redirect(request.path)
         else:
-            invitee_form = InviteeForm()
+            invite_form = InviteForm()
 
     return render(
         request,
-        "movies/showtime_detail.html",
+        "movie/showtime_detail.html",
         {
-            "page_group": "movie-nights",
+            "page_group": "showtimes",
             "showtime": showtime,
             "is_creator": is_creator,
-            "invitee_form": invitee_form,
-            "attendance_form": attendance_form,
+            "invite_form": invite_form,
+            "attend_form": attend_form,
             "in_the_past": in_the_past,
         },
     )
