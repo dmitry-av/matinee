@@ -112,6 +112,8 @@ def showtime_detail(request, pk):
             attend_form = AttendForm(request.POST, instance=invitation)
             if attend_form.is_valid():
                 attend_form.save()
+                invitation.attendance_confirmed = not invitation.attendance_confirmed
+                invitation.save()
         else:
             attend_form = AttendForm(instance=invitation)
     else:
