@@ -31,4 +31,5 @@ urlpatterns = [
     path("movies/<slug:imdb_id>/", movie.views.movie_detail, name="movie_detail"),
     path("showtimes/<int:pk>/", movie.views.showtime_detail,
          name="showtime_detail"),
+    path("api/", include("movie.api.urls")),
 ]

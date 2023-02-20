@@ -4,12 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "4.1.*"
+django = "*"
 python-decouple = "3.7"
 crispy-bootstrap5 = "0.7"
 django-configurations = "2.4"
 django-registration = "3.3"
 requests = "*"
+djangorestframework = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 autopep8 = "*"
