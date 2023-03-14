@@ -13,6 +13,7 @@ requests = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
 psycopg2 = "*"
+drf-yasg = "*"
 
 [dev-packages]
 autopep8 = "*"

@@ -31,6 +31,7 @@ class Dev(Configuration):
         "django.contrib.messages",
         "django.contrib.staticfiles",
         "django_registration",
+        "drf_yasg",
         "rest_framework",
         "rest_framework.authtoken",
         "crispy_forms",
@@ -170,6 +171,11 @@ class Dev(Configuration):
         "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
         "PAGE_SIZE": 100,
     }
+
+    SWAGGER_SETTINGS = {"SECURITY_DEFINITIONS": {
+        "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
+        "Basic": {"type": "basic"},
+    }}
 
     SIMPLE_JWT = {
         "ACCESS_TOKEN_LIFETIME": timedelta(days=1),

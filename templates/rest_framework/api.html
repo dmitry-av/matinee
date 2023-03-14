@@ -1,0 +1,15 @@
+{% extends "rest_framework/base.html" %}
+{% block title %}{% if name %}{{ name }} – {% endif %} Matinee REST API {% endblock %}
+{% block branding %}
+    <a href="/" class="navbar-brand">
+        MATINEE REST API
+    </a>
+{% endblock %}
+{% block style %}
+    {{ block.super }}
+    <style>
+        div .navbar {
+            border-top-color: #8D2F9C;
+        }
+    </style>
+{% endblock %}
