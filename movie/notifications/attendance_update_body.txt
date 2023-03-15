@@ -1,0 +1,11 @@
+Hello,
+
+{{ invitation.invited.email }} has updated their attendance status to your showtime event for
+{{ showtime.movie.title }}.
+
+They will {% if not is_attending %} not {% endif %} be attending your showtime event.
+
+To see the full list of attendees, please visit {{ showtime_url }}
+
+Ragards,
+Matinee

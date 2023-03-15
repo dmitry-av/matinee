@@ -14,6 +14,10 @@ djangorestframework = "*"
 djangorestframework-simplejwt = "*"
 psycopg2 = "*"
 drf-yasg = "*"
+celery = "*"
+django-celery-results = "*"
+redis = "*"
+django-celery-beat = "*"
 
 [dev-packages]
 autopep8 = "*"

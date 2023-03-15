@@ -6,22 +6,15 @@ from datetime import timedelta
 
 
 class Dev(Configuration):
-    # Build paths inside the project like this: BASE_DIR / 'subdir'.
     BASE_DIR = Path(__file__).resolve().parent.parent
 
-    # Quick-start development settings - unsuitable for production
-    # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
-    # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = os.environ.get("SECRET_KEY")
 
-    # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = values.BooleanValue(True)
 
     ALLOWED_HOSTS = []
 
     # Application definition
-
     INSTALLED_APPS = [
         "matinee_auth",
         "django.contrib.admin",
@@ -32,6 +25,8 @@ class Dev(Configuration):
         "django.contrib.staticfiles",
         "django_registration",
         "drf_yasg",
+        "django_celery_results",
+        "django_celery_beat",
         "rest_framework",
         "rest_framework.authtoken",
         "crispy_forms",
@@ -189,6 +184,9 @@ class Dev(Configuration):
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
     ACCOUNT_ACTIVATION_DAYS = 7
+
+    CELERY_RESULT_BACKEND = "django-db"
+    CELERY_BROKER_URL = "redis://localhost:6379/0"
 
     BASE_URL = ""
 

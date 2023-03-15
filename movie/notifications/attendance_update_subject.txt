@@ -1,0 +1,1 @@
+{{ invitation.invited.email }} has update their attendance to your showtime event

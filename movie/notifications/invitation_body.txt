@@ -1,0 +1,8 @@
+Hello,
+
+{{ creator.email }} has invited you to watch {{ showtime.movie.title }} at {{ showtime.start_time }}
+
+To confirm your attendance, please visit {{ showtime_url }}
+
+Ragards,
+Matinee
