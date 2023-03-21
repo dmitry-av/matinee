@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+
+  backend:
+    depends_on: 
+      - db
+    build:
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./.env
+    volumes:
+      - ./:/app
+      - static_volume:/app/static
+    command:
+      - '/app/entrypoint.sh'
+
+  db:
+    image: postgres:15.2-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+    volumes: 
+      - db:/var/lib/postgresql/data
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/app/static
+    ports:
+    - 1337:80
+    depends_on:
+    - backend
+    restart: "on-failure"
+
+volumes:
+  db:
+  static_volume:

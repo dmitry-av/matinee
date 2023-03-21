@@ -12,7 +12,7 @@ class Dev(Configuration):
 
     DEBUG = values.BooleanValue(True)
 
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS")]
 
     # Application definition
     INSTALLED_APPS = [
@@ -76,7 +76,7 @@ class Dev(Configuration):
 
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.environ.get("DB_NAME"),
             'USER': os.environ.get("DB_USERNAME"),
             'PASSWORD': os.environ.get("DB_PASSWORD"),
@@ -118,6 +118,10 @@ class Dev(Configuration):
     # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
     STATIC_URL = "static/"
+    STATIC_ROOT = BASE_DIR / "static"
+
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = BASE_DIR / "media"
 
     # Default primary key field type
     # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -195,4 +199,4 @@ class Dev(Configuration):
 
 class Prod(Dev):
     DEBUG = False
-    SECRET_KEY = values.SecretValue()
+    SECRET_KEY = os.environ.get("SECRET_KEY")
