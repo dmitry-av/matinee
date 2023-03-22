@@ -10,15 +10,19 @@ Prior running Docker images, enviroment variables must be set in /doc_env/docker
 
 Finally, run in terminal:
 
-    docker-compose up --build
+_docker-compose up --build_
 
 To run in local machine without Docker:
-run local postgres database;
-set all enviroment variables (see example file);
+install requirements from requirements.txt or using pipenv.
+run local postgres database;  
+set all enviroment variables (see example file);  
 run local redis server;
-first terminal:
-python manage.py runserver
-second terminal:
-celery -A matinee worker -l INFO
-third terminal:
-celery -A matinee beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+first terminal:  
+_python manage.py runserver_
+
+second terminal:  
+_celery -A matinee worker -l INFO_
+
+third terminal:  
+_celery -A matinee beat -l INFO --scheduler django_celery_beat. schedulers:DatabaseScheduler_
