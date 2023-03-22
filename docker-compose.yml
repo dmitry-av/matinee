@@ -8,7 +8,7 @@ services:
     build:
       dockerfile: ./Dockerfile
     env_file:
-      - ./.env
+      - ./doc_env/docker.env
     volumes:
       - ./:/app
       - static_volume:/app/static
@@ -35,6 +35,27 @@ services:
     depends_on:
     - backend
     restart: "on-failure"
+  
+  redis:
+    image: redis:7.0.10-alpine
+    expose:
+      - 6379
+    restart: unless-stopped
+
+  worker:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./doc_env/docker.env
+    entrypoint: /app/worker-entrypoint.sh
+    volumes:
+      - ./:/app
+      - static_volume:/app/static
+    depends_on:
+      - backend
+      - redis
 
 volumes:
   db:
