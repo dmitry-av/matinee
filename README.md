@@ -13,7 +13,8 @@ Finally, run in terminal:
 _docker-compose up --build_
 
 To run in local machine without Docker:
-install requirements from requirements.txt or using pipenv.
+
+install requirements from requirements.txt or using pipenv.  
 run local postgres database;  
 set all enviroment variables (see example file);  
 run local redis server;
